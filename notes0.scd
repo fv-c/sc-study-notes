@@ -263,8 +263,9 @@ x.free; y.free; z.free; b.free;
 
 
 //----------------------------------------------------------------------------
-// Buffers: read and write
+// Buffers: read from file
 //----------------------------------------------------------------------------
+
 (
 var audioFileName = thisProcess.nowExecutingPath.dirname; // get current file directory
 
@@ -285,3 +286,22 @@ x = Synth.new("bufferPlayer", [\bufNum, buffer]);
 )
 
 x.free;
+
+//----------------------------------------------------------------------------
+// Buffers: indexing
+//----------------------------------------------------------------------------
+
+~mysr = 16; // glbal variable
+
+b = Buffer.alloc(s, ~mysr, 1);
+
+(
+~mysr.do({
+	arg index;
+	b.set(index, (2 * pi * index / ~mysr).sin);
+});
+)
+
+b.plot;
+
+b.free;
